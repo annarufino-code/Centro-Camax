@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Camax - Acesso Rápido</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="acessorapido.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .container-btn-centralizado {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-editar-perfil-central {
+            width: 100%;
+            max-width: 250px;
+            padding: 12px 20px;
+            background-color: #2d862f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-editar-perfil-central:hover {
+            background-color: #236d25;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container-menu-de-navegação-um">
+        <nav class="menu-de-navegação">
+            <div class="container-da-logo">
+                <img id="logo-centro-camax-um" src="imagens/Logo centroCamax.svg" alt="Logo Centro Camax">
+            </div>
+            <div class="container-do-título-da-logo">
+                <h1 id="título-centro-camax-um">CENTRO CAMAX</h1>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-acesso">
+        <div class="card-acesso-central">
+            <a href="index.html" class="voltar-link">
+                <i class="fa-solid fa-chevron-left"></i> Voltar ao Início
+            </a>
+            
+            <h2>Área do Feirante</h2>
+            <p class="subtitulo-acesso">Escolha uma das opções abaixo para prosseguir para o sistema</p>
+
+            <div class="layout-colunas-acesso">
+                <div class="coluna-opcao">
+                    <button class="btn-opcao-acesso login" onclick="window.location.href='feirante.html'">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Entrar no meu Espaço</span>
+                    </button>
+                </div>
+
+                <div class="coluna-opcao">
+                    <button class="btn-opcao-acesso visualizar-salvos" onclick="window.location.href='boxessalvos.html'">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span>Visualizar Boxes Salvos</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botão apontando corretamente para editarBox.html -->
+            <div class="container-btn-centralizado">
+                <button class="btn-editar-perfil-central" onclick="window.location.href='editarBox.html'">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Editar Perfil</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

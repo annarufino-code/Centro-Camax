@@ -1,0 +1,41 @@
+/* --- Organização da Grid de Categorias --- */
+.categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+.card-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e0e0e0;
+    height: 140px;
+}
+
+.card-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.card-item img {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 12px;
+    object-fit: contain;
+}
+
+.card-item p {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+}
