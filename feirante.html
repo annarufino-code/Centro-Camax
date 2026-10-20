@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Camax - Painel do Feirante</title>
+    <link rel="stylesheet" href="feirante.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body { background-color: #f5f5f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding-bottom: 40px; }
+        
+        .topo { background-color: #2d862f; padding: 15px 4%; display: flex; align-items: center; color: white; }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .voltar { color: #333; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 15px; }
+
+        .alerta-sucesso { display: none; background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; text-align: center; }
+        .alerta-erro { display: none; background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; text-align: center; font-size: 14px; }
+        
+        .container-abas { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
+        .btn-aba { padding: 12px 24px; border: 2px solid #2d862f; background: white; color: #2d862f; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-aba.ativa { background: #2d862f; color: white; }
+
+        .card-centralizado { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #e0e0e0; }
+        
+        .card-centralizado label { display: block; font-size: 14px; font-weight: 600; color: #333; margin-top: 15px; margin-bottom: 6px; text-align: left; }
+        
+        .card-centralizado input[type="text"], 
+        .card-centralizado select, 
+        .card-centralizado textarea { 
+            width: 100% !important; 
+            padding: 12px; 
+            border: 1.5px solid #ccc; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            outline: none; 
+            display: block !important;
+            margin-bottom: 5px;
+            background-color: #fafafa;
+        }
+
+        .card-centralizado input:focus, 
+        .card-centralizado select:focus { border-color: #2d862f; background-color: #fff; }
+
+        .btn-verde { width: 100%; padding: 13px; background-color: #2d862f; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-verde:hover { background-color: #236d25; }
+
+        .badge-token { display: block; background: #e8f5e9; color: #2d862f; padding: 10px; border-radius: 6px; font-size: 12px; font-family: monospace; font-weight: bold; margin-top: 10px; word-break: break-all; text-align: center; border: 1px dashed #2d862f; }
+        
+        /* Estilos específicos para o seletor de Status (MDR-15) */
+        .box-status-container { background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center; }
+        .status-select { width: 100%; padding: 10px; border-radius: 6px; border: 1.5px solid #ccc; font-weight: bold; font-size: 14px; background: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header class="topo">
+        <img src="imagens/Logo centroCamax.svg" alt="Centro Camax" onerror="this.style.display='none'">
+        <span style="color:white; font-weight:bold; margin-left:10px; font-size:18px;">Centro Camax - Painel do Feirante</span>
+    </header>
+
+    <div class="container">
+        <a href="acessorapido.html" class="voltar">
+            <i class="fa-solid fa-chevron-left"></i> Voltar
+        </a>
+
+        <h1 style="text-align: center; margin-bottom: 20px; color: #333;">Área do Feirante</h1>
+
+        <!-- Alertas de Mensagem -->
+        <div id="sucesso-cadastro" class="alerta-sucesso"></div>
+        <div id="erro-login" class="alerta-erro"></div>
+
+        <!-- TELA 1: AUTENTICAÇÃO (Login ou Cadastro por Abas) -->
+        <div id="secao-autenticacao">
+            <div class="container-abas">
+                <button class="btn-aba ativa" id="aba-login" onclick="mudarAba('login')">
+                    <i class="fa-solid fa-right-to-bracket"></i> Já tenho conta (Entrar)
+                </button>
+                <button class="btn-aba" id="aba-cadastro" onclick="mudarAba('cadastro')">
+                    <i class="fa-solid fa-plus"></i> Cadastrar Novo Espaço
+                </button>
+            </div>
+
+            <!-- FORMULÁRIO DE LOGIN -->
+            <div class="card-centralizado" id="form-login">
+                <h3 style="font-size:20px; margin-bottom:15px; font-weight:bold; color: #2d862f; text-align: center;">
+                    <i class="fa-solid fa-lock"></i> Entrar no Meu Espaço
+                </h3>
+                
+                <label for="login-nome">Nome do Estabelecimento:</label>
+                <input type="text" id="login-nome" placeholder="Ex: Barraca da Lu">
+
+                <label for="login-box">Número do Box:</label>
+                <input type="text" id="login-box" placeholder="Ex: 35">
+
+                <button class="btn-verde" onclick="executarLoginPOST()">
+                    <i class="fa-solid fa-key"></i> Entrar / Autenticar
+                </button>
+            </div>
+
+            <!-- FORMULÁRIO DE CADASTRO -->
+            <div class="card-centralizado" id="form-cadastro" style="display: none;">
+                <h3 style="font-size:20px; margin-bottom:15px; font-weight:bold; color: #2d862f; text-align: center;">
+                    <i class="fa-solid fa-store"></i> Cadastrar Novo Espaço
+                </h3>
+
+                <input type="file" id="input-imagem-oculto" accept="image/*" style="display:none;" onchange="carregarPreviewFoto(event)">
+                
+                <div class="upload" onclick="document.getElementById('input-imagem-oculto').click()" style="cursor:pointer; text-align:center; border:2px dashed #ccc; padding:20px; border-radius:8px; margin-bottom:15px; background: #fafafa;">
+                    <div id="conteudo-upload-padrao">
+                        <i class="fa-regular fa-image" style="font-size: 32px; color: #2d862f;"></i>
+                        <p style="margin-top:5px; font-size:13px; color:#666;">Clique para adicionar uma imagem do local</p>
+                    </div>
+                    <img id="foto-carregada-view" class="preview-img" style="display:none; width:100%; height:140px; object-fit:cover; border-radius:8px;" alt="Preview">
+                </div>
+
+                <label for="input-nome-espaco">Nome do Espaço:</label>
+                <input type="text" id="input-nome-espaco" placeholder="Ex: Barraca da Lu">
+
+                <label for="input-box-espaco">Número do Box:</label>
+                <input type="text" id="input-box-espaco" placeholder="Ex: 35">
+
+                <label for="input-cat-espaco">Categoria:</label>
+                <select id="input-cat-espaco">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="Carnes">Carnes</option>
+                    <option value="Frutas">Frutas</option>
+                    <option value="Verduras">Verduras</option>
+                    <option value="Temperos">Temperos</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Artesanato">Artesanato</option>
+                    <option value="Roupas">Roupas</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Serviços">Serviços</option>
+                </select>
+
+                <button class="btn-verde" onclick="executarCadastroDinamico()">
+                    <i class="fa-solid fa-circle-check"></i> Concluir Cadastro
+                </button>
+            </div>
+        </div>
+
+        <!-- TELA 2: PAINEL DE GESTÃO (Com [PATCH] Status Aberto/Fechado - MDR-15) -->
+        <div class="card-centralizado" id="painel-gerenciamento" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="font-size:18px; font-weight:bold; color: #2d862f; margin:0;">
+                    <i class="fa-solid fa-user-check"></i> Meu Perfil Autenticado
+                </h3>
+                <button onclick="executarLogout()" style="background:#d32f2f; color:white; border:none; padding:8px 14px; border-radius:6px; font-size:12px; cursor:pointer; font-weight:bold;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sair
+                </button>
+            </div>
+
+            <p style="font-size:13px; color:#666; margin-bottom:5px;">Token de Acesso Ativo (`MDR-12`):</p>
+            <span class="badge-token" id="exibir-token">Bearer token_xyz</span>
+
+            <!-- SEÇÃO DE STATUS RÁPIDO [PATCH] (MDR-15) -->
+            <div class="box-status-container">
+                <label for="status-operacional" style="margin-top: 0; font-size: 13px; color: #555;">Status da Banca no Centro Camax:</label>
+                <select id="status-operacional" class="status-select" onchange="atualizarStatusPatch()">
+                    <option value="Aberto">🟢 Aberto (Funcionando)</option>
+                    <option value="Fechado">🔴 Fechado (Indisponível no momento)</option>
+                </select>
+            </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+            <h4 style="margin-bottom:15px; color:#333; text-align:center;">Editar Dados do Espaço</h4>
+
+            <label for="edit-nome">Nome do Espaço:</label>
+            <input type="text" id="edit-nome">
+
+            <label for="edit-box">Número do Box:</label>
+            <input type="text" id="edit-box">
+
+            <label for="edit-cat">Categoria:</label>
+            <select id="edit-cat">
+                <option value="Carnes">Carnes</option>
+                <option value="Frutas">Frutas</option>
+                <option value="Verduras">Verduras</option>
+                <option value="Temperos">Temperos</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Artesanato">Artesanato</option>
+                <option value="Roupas">Roupas</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Serviços">Serviços</option>
+            </select>
+
+            <button class="btn-verde" onclick="salvarAlteracoes()">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        window.onload = function() {
+            verificarSessao();
+        };
+
+        function mudarAba(aba) {
+            document.getElementById('erro-login').style.display = 'none';
+            if (aba === 'login') {
+                document.getElementById('aba-login').classList.add('ativa');
+                document.getElementById('aba-cadastro').classList.remove('ativa');
+                document.getElementById('form-login').style.display = 'block';
+                document.getElementById('form-cadastro').style.display = 'none';
+            } else {
+                document.getElementById('aba-cadastro').classList.add('ativa');
+                document.getElementById('aba-login').classList.remove('ativa');
+                document.getElementById('form-cadastro').style.display = 'block';
+                document.getElementById('form-login').style.display = 'none';
+            }
+        }
+
+        function verificarSessao() {
+            const token = localStorage.getItem('camax_auth_token');
+            const dados = JSON.parse(localStorage.getItem('dadosFeiranteLogado'));
+
+            if (token && dados) {
+                document.getElementById('secao-autenticacao').style.display = 'none';
+                document.getElementById('painel-gerenciamento').style.display = 'block';
+
+                document.getElementById('exibir-token').innerText = token;
+                document.getElementById('edit-nome').value = dados.nome || "";
+                document.getElementById('edit-box').value = dados.box ? dados.box.replace("Box ", "") : "";
+                document.getElementById('edit-cat').value = dados.categoria || "Alimentação";
+                document.getElementById('status-operacional').value = dados.status || "Aberto";
+            } else {
+                document.getElementById('secao-autenticacao').style.display = 'block';
+                document.getElementById('painel-gerenciamento').style.display = 'none';
+            }
+        }
+
+        function executarLoginPOST() {
+            const nome = document.getElementById('login-nome').value.trim();
+            const box = document.getElementById('login-box').value.trim();
+            const divErro = document.getElementById('erro-login');
+
+            if (nome === "" || box === "") {
+                divErro.innerText = "Por favor, preencha o Nome e o Número do Box para entrar!";
+                divErro.style.display = 'block';
+                return;
+            }
+
+            const tokenGerado = `camax_sec_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+            localStorage.setItem('camax_auth_token', tokenGerado);
+
+            const dados = {
+                nome: nome,
+                box: "Box " + box,
+                categoria: "Alimentação",
+                status: "Aberto"
+            };
+
+            localStorage.setItem('dadosFeiranteLogado', JSON.stringify(dados));
+            verificarSessao();
+
+            const alerta = document.getElementById('sucesso-cadastro');
+            alerta.innerText = "Login efetuado com sucesso!";
+            alerta.style.display = 'block';
+        }
+
+        function executarCadastroDinamico() {
+            const nome = document.getElementById('input-nome-espaco').value.trim();
+            const boxNum = document.getElementById('input-box-espaco').value.trim();
+            const boxCat = document.getElementById('input-cat-espaco').value;
+
+            if (nome === "" || boxNum === "" || boxCat === "") {
+                alert("Preencha todos os campos do cadastro!");
+                return;
+            }
+
+            const tokenGerado = `camax_sec_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+            localStorage.setItem('camax_auth_token', tokenGerado);
+
+            const dados = {
+                nome: nome,
+                box: "Box " + boxNum,
+                categoria: boxCat,
+                status: "Aberto"
+            };
+
+            localStorage.setItem('dadosFeiranteLogado', JSON.stringify(dados));
+            verificarSessao();
+
+            const alerta = document.getElementById('sucesso-cadastro');
+            alerta.innerText = "Cadastro realizado e sessão iniciada com sucesso!";
+            alerta.style.display = 'block';
+        }
+
+        // [PATCH] MDR-15: Atualizar status rápido Aberto/Fechado
+        function atualizarStatusPatch() {
+            const novoStatus = document.getElementById('status-operacional').value;
+            let dados = JSON.parse(localStorage.getItem('dadosFeiranteLogado')) || {};
+
+            dados.status = novoStatus;
+            localStorage.setItem('dadosFeiranteLogado', JSON.stringify(dados));
+
+            const alerta = document.getElementById('sucesso-cadastro');
+            alerta.innerText = `Status alterado com sucesso para: ${novoStatus}!`;
+            alerta.style.display = 'block';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function salvarAlteracoes() {
+            const nome = document.getElementById('edit-nome').value.trim();
+            const box = document.getElementById('edit-box').value.trim();
+            const cat = document.getElementById('edit-cat').value;
+            const statusAtual = document.getElementById('status-operacional').value;
+
+            const dados = {
+                nome: nome,
+                box: "Box " + box,
+                categoria: cat,
+                status: statusAtual
+            };
+
+            localStorage.setItem('dadosFeiranteLogado', JSON.stringify(dados));
+
+            const alerta = document.getElementById('sucesso-cadastro');
+            alerta.innerText = "Alterado e atualizado com sucesso!";
+            alerta.style.display = 'block';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function executarLogout() {
+            localStorage.removeItem('camax_auth_token');
+            document.getElementById('sucesso-cadastro').style.display = 'none';
+            verificarSessao();
+        }
+
+        function carregarPreviewFoto(event) {
+            const arquivo = event.target.files[0];
+            if (arquivo) {
+                const leitor = new FileReader();
+                leitor.onload = function(e) {
+                    document.getElementById('conteudo-upload-padrao').style.display = 'none';
+                    const visualizador = document.getElementById('foto-carregada-view');
+                    visualizador.src = e.target.result;
+                    visualizador.style.display = 'block';
+                }
+                leitor.readAsDataURL(arquivo);
+            }
+        }
+    </script>
+</body>
+</html>

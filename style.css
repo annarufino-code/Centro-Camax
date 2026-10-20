@@ -1,0 +1,263 @@
+/* --- Estilos Globais e Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f3f3f3;
+    overflow-x: hidden;
+}
+
+/* --- Cabeçalho --- */
+.container-menu-de-navegação-um {
+    width: 100%;
+    background-color: #2d862f;
+    height: 70px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.menu-de-navegação {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-da-logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo-centro-camax-um {
+    height: 55px;
+    width: auto;
+}
+
+.container-do-título-da-logo {
+    flex: 1;
+    margin-left: 15px;
+}
+
+#título-centro-camax-um {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+#btn-entrar {
+    background-color: #ffffff;
+    color: #2d862f;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#btn-entrar:hover {
+    background-color: #e2e2e2;
+}
+
+/* --- Barra de Busca Original Compacta Arredondada --- */
+.seção-de-busca {
+    max-width: 480px; /* Reduzido para ficar menor igual no início */
+    width: 90%;
+    margin: 35px auto;
+    background: #ffffff;
+    border: 1px solid #b0b0b0;
+    border-radius: 30px;
+    padding: 6px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.container-da-barra-de-busca {
+    flex: 1;
+}
+
+#barra-de-busca {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 8px 5px;
+    font-size: 15px;
+    background: transparent;
+}
+
+.container-do-ícone-da-lupa {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+#ícone-da-lupa {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- Grid de Categorias --- */
+.seção-de-categorias {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto 30px auto;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.container-título-de-categorias {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#título-de-categorias {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.seção-de-categorias button {
+    background: #dff4c9;
+    border: none;
+    border-radius: 12px;
+    width: 115px;
+    height: 105px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.seção-de-categorias button:hover {
+    transform: translateY(-3px);
+}
+
+.seção-de-categorias img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    object-fit: contain;
+}
+
+.seção-de-categorias p {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* --- Banner --- */
+.seção-de-banner {
+    width: 90%;
+    max-width: 1000px;
+    margin: 25px auto;
+}
+
+#banner {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* --- Seção de Listagem Geral --- */
+.seção-de-feirantes-destaque {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+#título-feirantes-destaque {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.container-de-texto-feirantes-não-encontrados {
+    width: 100%;
+    height: 150px;
+    background: #ececec;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #cccccc;
+}
+
+/* --- Painel Lateral Profissional (Sidebar Details) --- */
+.painel-lateral {
+    position: fixed;
+    top: 0;
+    right: -450px; /* Escondido por padrão na direita */
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+    z-index: 9999;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.painel-lateral.aberto {
+    right: 0; /* Desliza para dentro da tela */
+}
+
+.painel-header {
+    background-color: #2d862f;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.painel-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn-fechar-painel {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.painel-corpo {
+    padding: 25px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Overlay de Fundo Escuro */
+.painel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 9998;
+    display: none;
+}
+
+.painel-overlay.visivel {
+    display: block;
+}
