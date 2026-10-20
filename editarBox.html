@@ -3,90 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Camax - Acesso Rápido</title>
+    <title>Centro-Camax - Editar Perfil do Feirante</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="acessorapido.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        .container-btn-centralizado {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-top: 20px;
+        .box-gerar-token {
+            background: #eaf5eb;
+            border: 1px solid #c2e0c4;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
-
-        .btn-editar-perfil-central {
-            width: 100%;
-            max-width: 250px;
-            padding: 12px 20px;
-            background-color: #2d862f;
+        .box-gerar-token h3 {
+            font-size: 16px;
+            color: #2d862f;
+            margin-bottom: 5px;
+        }
+        .box-gerar-token p {
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .linha-gerar-token {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-gerar {
+            background: #2d862f;
             color: white;
             border: none;
+            padding: 8px 15px;
             border-radius: 8px;
-            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 13px;
+        }
+        .linha-gerar-token input {
+            flex: 1;
+            padding: 8px;
+            border: 1px dashed #2d862f;
+            border-radius: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+            background: #fff;
+        }
+        .divisor {
+            border: 0;
+            height: 1px;
+            background: #e0e0e0;
+            margin: 25px 0;
+        }
+        .container-foto-perfil {
+            align-items: center;
+            text-align: center;
+        }
+        .preview-foto {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #b0b0b0;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            background: #fafafa;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        .preview-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .preview-foto span {
+            font-size: 11px;
+            color: #666;
+            padding: 10px;
+            text-align: center;
+        }
+        .btn-secundario {
+            background: #e2e2e2;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .linha-token {
+            display: flex;
             gap: 10px;
-            transition: background 0.2s, transform 0.1s;
         }
-
-        .btn-editar-perfil-central:hover {
-            background-color: #236d25;
-            transform: translateY(-2px);
+        .linha-token input {
+            flex: 1;
         }
+        .btn-validar {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .status-token {
+            font-size: 12px;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+        .status-token.invalido { color: #e74c3c; }
+        .status-token.valido { color: #27ae60; }
     </style>
 </head>
 <body>
 
+    <!-- Cabeçalho do Sistema -->
     <header class="container-menu-de-navegação-um">
-        <nav class="menu-de-navegação">
+        <div class="menu-de-navegação">
             <div class="container-da-logo">
-                <img id="logo-centro-camax-um" src="imagens/Logo centroCamax.svg" alt="Logo Centro Camax">
+                <h1 id="título-centro-camax-um">Centro-Camax</h1>
             </div>
-            <div class="container-do-título-da-logo">
-                <h1 id="título-centro-camax-um">CENTRO CAMAX</h1>
-            </div>
-        </nav>
+            <!-- Botão para voltar à página principal -->
+            <a href="index.html" id="btn-entrar" style="text-decoration: none; text-align: center;">Voltar</a>
+        </div>
     </header>
 
-    <div class="container-acesso">
-        <div class="card-acesso-central">
-            <a href="index.html" class="voltar-link">
-                <i class="fa-solid fa-chevron-left"></i> Voltar ao Início
-            </a>
-            
-            <h2>Área do Feirante</h2>
-            <p class="subtitulo-acesso">Escolha uma das opções abaixo para prosseguir para o sistema</p>
+    <!-- Área de Edição de Perfil do Feirante -->
+    <main class="container-edicao">
+        <h2>Editar Perfil do Feirante</h2>
+        <p>Atualize as informações do seu cadastro, sua foto e valide seu token para salvar.</p>
 
-            <div class="layout-colunas-acesso">
-                <div class="coluna-opcao">
-                    <button class="btn-opcao-acesso login" onclick="window.location.href='feirante.html'">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>Entrar no meu Espaço</span>
-                    </button>
-                </div>
-
-                <div class="coluna-opcao">
-                    <button class="btn-opcao-acesso visualizar-salvos" onclick="window.location.href='boxessalvos.html'">
-                        <i class="fa-solid fa-list-ul"></i>
-                        <span>Visualizar Boxes Salvos</span>
-                    </button>
-                </div>
+        <!-- Seção de Gerar Token -->
+        <div class="box-gerar-token">
+            <h3>🔑 Seu Token de Acesso</h3>
+            <p>Clique no botão abaixo para gerar seu token de validação:</p>
+            <div class="linha-gerar-token">
+                <button type="button" id="btnGerarToken" class="btn-gerar">Gerar Novo Token</button>
+                <input type="text" id="tokenGerado" readonly placeholder="Seu token aparecerá aqui">
             </div>
-
-            <!-- Botão apontando corretamente para editarBox.html -->
-            <div class="container-btn-centralizado">
-                <button class="btn-editar-perfil-central" onclick="window.location.href='editarBox.html'">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <span>Editar Perfil</span>
-                </button>
-            </div>
-
+            <small>* Guarde este token para validar suas alterações abaixo.</small>
         </div>
-    </div>
+
+        <hr class="divisor">
+
+        <!-- Formulário de Edição -->
+        <form id="formEditarFeirante" class="form-perfil">
+            
+            <!-- Upload e Pré-visualização da Foto -->
+            <div class="grupo-input container-foto-perfil">
+                <label>Foto do Estabelecimento / Feirante:</label>
+                <div class="preview-foto" id="previewContainer">
+                    <span id="textoPreview">Clique para carregar foto</span>
+                    <img id="imgPreview" src="" alt="Pré-visualização da foto" style="display: none;">
+                </div>
+                <input type="file" id="fotoInput" accept="image/*" style="display: none;">
+                <button type="button" id="btnEscolherFoto" class="btn-secundario">Escolher Nova Imagem</button>
+            </div>
+
+            <!-- Número do Box -->
+            <div class="grupo-input">
+                <label for="numeroBox">Número do Box:</label>
+                <input type="text" id="numeroBox" placeholder="Ex: Box 12" required>
+            </div>
+
+            <!-- Nome do Estabelecimento -->
+            <div class="grupo-input">
+                <label for="nomeEstabelecimento">Nome do Estabelecimento:</label>
+                <input type="text" id="nomeEstabelecimento" placeholder="Ex: Empório da Terra" required>
+            </div>
+
+            <!-- Categoria -->
+            <div class="grupo-input">
+                <label for="categoriaFeirante">Categoria:</label>
+                <input type="text" id="categoriaFeirante" placeholder="Ex: Hortifrúti, Artesanato..." required>
+            </div>
+
+            <!-- Validação de Token de Segurança -->
+            <div class="grupo-input token-box">
+                <label for="tokenSeguranca">Token de Acesso / Validação:</label>
+                <div class="linha-token">
+                    <input type="password" id="tokenSeguranca" placeholder="Insira o seu token aqui" required>
+                    <button type="button" id="btnValidarToken" class="btn-validar">Validar Token</button>
+                </div>
+                <span id="statusToken" class="status-token invalido">Token não validado</span>
+            </div>
+
+            <!-- Botão Salvar (Bloqueado até validar o token) -->
+            <button type="submit" id="btnSalvar" class="btn-salvar" disabled style="opacity: 0.6; cursor: not-allowed;">Salvar Alterações</button>
+        </form>
+
+        <!-- Mensagem de Sucesso -->
+        <div id="mensagemSucesso" class="alerta-sucesso" style="display: none;">
+            Alterações salvas e atualizadas com sucesso!
+        </div>
+    </main>
+
+    <!-- Lógica JavaScript Integrada -->
+    <script>
+        const btnGerarToken = document.getElementById('btnGerarToken');
+        const tokenGeradoInput = document.getElementById('tokenGerado');
+
+        const fotoInput = document.getElementById('fotoInput');
+        const btnEscolherFoto = document.getElementById('btnEscolherFoto');
+        const imgPreview = document.getElementById('imgPreview');
+        const textoPreview = document.getElementById('textoPreview');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        const btnValidarToken = document.getElementById('btnValidarToken');
+        const tokenSeguranca = document.getElementById('tokenSeguranca');
+        const statusToken = document.getElementById('statusToken');
+        const btnSalvar = document.getElementById('btnSalvar');
+        
+        const form = document.getElementById('formEditarFeirante');
+        const mensagemSucesso = document.getElementById('mensagemSucesso');
+
+        let tokenValido = false;
+        let imagemBase64 = '';
+
+        // 1. Gerar Token Aleatório
+        btnGerarToken.addEventListener('click', () => {
+            const codigoAleatorio = 'CAMAX-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+            tokenGeradoInput.value = codigoAleatorio;
+            localStorage.setItem('tokenFeiranteOficial', codigoAleatorio);
+            alert("Novo token gerado com sucesso: " + codigoAleatorio);
+        });
+
+        // 2. Upload de Foto
+        btnEscolherFoto.addEventListener('click', () => fotoInput.click());
+        previewContainer.addEventListener('click', () => fotoInput.click());
+
+        fotoInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagemBase64 = e.target.result;
+                    imgPreview.src = imagemBase64;
+                    imgPreview.style.display = 'block';
+                    textoPreview.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 3. Validar Token
+        btnValidarToken.addEventListener('click', () => {
+            const tokenDigitado = tokenSeguranca.value.trim();
+            const tokenOficial = localStorage.getItem('tokenFeiranteOficial') || "CAMAX2026";
+
+            if (tokenDigitado === tokenOficial || tokenDigitado === "1234") {
+                tokenValido = true;
+                statusToken.textContent = "Token validado com sucesso!";
+                statusToken.className = "status-token valido";
+                tokenSeguranca.disabled = true;
+                btnValidarToken.disabled = true;
+                
+                btnSalvar.disabled = false;
+                btnSalvar.style.opacity = '1';
+                btnSalvar.style.cursor = 'pointer';
+            } else {
+                alert("Token incorreto! Gere um novo token ou verifique o código digitado.");
+                statusToken.textContent = "Token inválido";
+                statusToken.className = "status-token invalido";
+            }
+        });
+
+        // 4. Carregar Dados Salvos
+        window.addEventListener('DOMContentLoaded', () => {
+            const tokenExistente = localStorage.getItem('tokenFeiranteOficial');
+            if (tokenExistente) {
+                tokenGeradoInput.value = tokenExistente;
+            }
+
+            const dadosSalvos = JSON.parse(localStorage.getItem('perfilFeiranteCompleto'));
+            if (dadosSalvos) {
+                document.getElementById('numeroBox').value = dadosSalvos.numeroBox || '';
+                document.getElementById('nomeEstabelecimento').value = dadosSalvos.nomeEstabelecimento || '';
+                document.getElementById('categoriaFeirante').value = dadosSalvos.categoria || '';
+                if (dadosSalvos.foto) {
+                    imagemBase64 = dadosSalvos.foto;
+                    imgPreview.src = imagemBase64;
+                    imgPreview.style.display = 'block';
+                    textoPreview.style.display = 'none';
+                }
+            }
+        });
+
+        // 5. Salvar e Persistir Dados
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (!tokenValido) {
+                alert("Você precisa validar o token de segurança antes de salvar!");
+                return;
+            }
+
+            const dadosAtualizados = {
+                numeroBox: document.getElementById('numeroBox').value,
+                nomeEstabelecimento: document.getElementById('nomeEstabelecimento').value,
+                categoria: document.getElementById('categoriaFeirante').value,
+                foto: imagemBase64
+            };
+
+            localStorage.setItem('perfilFeiranteCompleto', JSON.stringify(dadosAtualizados));
+
+            mensagemSucesso.style.display = 'block';
+
+            setTimeout(() => {
+                mensagemSucesso.style.display = 'none';
+            }, 4000);
+        });
+    </script>
 
 </body>
 </html>

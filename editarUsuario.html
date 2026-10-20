@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro-Camax - Editar Perfil do Usuário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cabeçalho idêntico ao do projeto -->
+    <header class="container-menu-de-navegação-um">
+        <div class="menu-de-navegação">
+            <div class="container-da-logo">
+                <h1 id="título-centro-camax-um">Centro-Camax</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo da Página de Edição de Perfil do Usuário -->
+    <main class="container-edicao">
+        <h2>Editar Perfil do Usuário</h2>
+        <p>Atualize as suas informações pessoais abaixo:</p>
+
+        <!-- Formulário de Edição do Usuário -->
+        <form id="formEditarUsuario" class="form-perfil">
+            <div class="grupo-input">
+                <label for="nomeUsuario">Nome Completo:</label>
+                <input type="text" id="nomeUsuario" placeholder="Digite seu nome completo" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="emailUsuario">E-mail:</label>
+                <input type="email" id="emailUsuario" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="telefoneUsuario">Telefone / WhatsApp:</label>
+                <input type="text" id="telefoneUsuario" placeholder="(71) 90000-0000" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="enderecoUsuario">Endereço / Bairro:</label>
+                <input type="text" id="enderecoUsuario" placeholder="Digite seu bairro ou endereço" required>
+            </div>
+
+            <button type="submit" class="btn-salvar">Salvar Alterações</button>
+        </form>
+
+        <!-- Mensagem de Sucesso (inicialmente oculta) -->
+        <div id="mensagemSucessoUsuario" class="alerta-sucesso" style="display: none;">
+            Alterações salvas e atualizadas com sucesso!
+        </div>
+    </main>
+
+    <!-- Script para gerardar o salvamento local e exibir a mensagem -->
+    <script>
+        const formUsuario = document.getElementById('formEditarUsuario');
+        const mensagemSucessoUsuario = document.getElementById('mensagemSucessoUsuario');
+
+        // Carrega dados salvos anteriormente no navegador (se houver)
+        window.addEventListener('DOMContentLoaded', () => {
+            const dadosUsuarioSalvos = JSON.parse(localStorage.getItem('perfilUsuario'));
+            if (dadosUsuarioSalvos) {
+                document.getElementById('nomeUsuario').value = dadosUsuarioSalvos.nome || '';
+                document.getElementById('emailUsuario').value = dadosUsuarioSalvos.email || '';
+                document.getElementById('telefoneUsuario').value = dadosUsuarioSalvos.telefone || '';
+                document.getElementById('enderecoUsuario').value = dadosUsuarioSalvos.endereco || '';
+            }
+        });
+
+        // Evento ao clicar em Salvar Alterações
+        formUsuario.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o recarregamento da página
+
+            const dadosUsuarioAtualizados = {
+                nome: document.getElementById('nomeUsuario').value,
+                email: document.getElementById('emailUsuario').value,
+                telefone: document.getElementById('telefoneUsuario').value,
+                endereco: document.getElementById('enderecoUsuario').value
+            };
+
+            // Guarda os dados no localStorage do navegador
+            localStorage.setItem('perfilUsuario', JSON.stringify(dadosUsuarioAtualizados));
+
+            // Mostra a mensagem de sucesso na tela
+            mensagemSucessoUsuario.style.display = 'block';
+
+            // Oculta a mensagem automaticamente após 4 segundos
+            setTimeout(() => {
+                mensagemSucessoUsuario.style.display = 'none';
+            }, 4000);
+        });
+    </script>
+
+</body>
+</html>

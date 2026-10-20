@@ -69,7 +69,7 @@ body {
 
 /* --- Barra de Busca Original Compacta Arredondada --- */
 .seção-de-busca {
-    max-width: 480px; /* Reduzido para ficar menor igual no início */
+    max-width: 480px;
     width: 90%;
     margin: 35px auto;
     background: #ffffff;
@@ -201,7 +201,7 @@ body {
 .painel-lateral {
     position: fixed;
     top: 0;
-    right: -450px; /* Escondido por padrão na direita */
+    right: -450px;
     width: 100%;
     max-width: 420px;
     height: 100vh;
@@ -215,7 +215,7 @@ body {
 }
 
 .painel-lateral.aberto {
-    right: 0; /* Desliza para dentro da tela */
+    right: 0;
 }
 
 .painel-header {
@@ -260,4 +260,89 @@ body {
 
 .painel-overlay.visivel {
     display: block;
+}
+
+/* --- Estilos da Página de Edição do Feirante --- */
+.container-edicao {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.container-edicao h2 {
+    color: #2d862f;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.container-edicao p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.form-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-input label {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+.grupo-input input, 
+.grupo-input textarea {
+    padding: 12px;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fafafa;
+}
+
+.grupo-input input:focus, 
+.grupo-input textarea:focus {
+    border-color: #2d862f;
+    background: #fff;
+}
+
+.btn-salvar {
+    background-color: #2d862f;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.btn-salvar:hover {
+    background-color: #236b25;
+}
+
+.alerta-sucesso {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
 }

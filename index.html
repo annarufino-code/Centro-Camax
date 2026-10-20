@@ -13,7 +13,13 @@
         .navbar { background-color: #2d862f; color: white; padding: 15px 4%; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
         .brand img { height: 35px; }
-        .nav-btn { background: white; color: #2d862f; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; }
+        
+        /* Container para os botões do menu */
+        .nav-actions { display: flex; gap: 10px; align-items: center; }
+        .nav-btn { background: white; color: #2d862f; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+        .nav-btn:hover { background: #e8f5e9; }
+        .nav-btn-alt { background: transparent; color: white; border: 1.5px solid white; }
+        .nav-btn-alt:hover { background: rgba(255,255,255,0.15); color: white; }
 
         /* Container Principal */
         .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
@@ -82,8 +88,11 @@
             <img src="imagens/Logo centroCamax.svg" alt="" onerror="this.style.display='none'">
             <span>Centro Camax</span>
         </div>
-        <!-- Botão original Entrar -->
-        <button class="nav-btn" onclick="location.href='acessorapido.html'">Entrar</button>
+        <!-- Área com os DOIS botões: Cadastro (Entrar) e Editar Perfil -->
+        <div class="nav-actions">
+            <button class="nav-btn nav-btn-alt" onclick="location.href='editarBox.html'">Editar Perfil</button>
+            <button class="nav-btn" onclick="location.href='acessorapido.html'">Entrar / Cadastrar</button>
+        </div>
     </div>
 
     <div class="container">
@@ -328,7 +337,7 @@
                     </div>
                     
                     <h2 style="font-size: 22px; margin-bottom: 2px; color: #000; font-weight:bold;">${box.nome}</h2>
-                    <p style="font-size: 13px; color: #777; margin-bottom: 15px;">${box.categoria} • ${box.subcategoria}</p>
+                    <p style="font-size: 13px; color: #777; margin-bottom: 15px;">${box.categoria} - ${box.subcategoria}</p>
 
                     <p style="font-size: 14px; color: #444; line-height: 1.5; margin-bottom: 20px; background: #f9f9f9; padding: 12px; border-radius: 6px;">
                         ${box.desc}
