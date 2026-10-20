@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Camax - Feirante</title>
+    <link rel="stylesheet" href="feirante.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="topo">
+        <img src="imagens/Logo centroCamax.svg" alt="Centro Camax">
+    </header>
+
+    <div class="container">
+        <a href="acessorapido.html" class="voltar">
+            <i class="fa-solid fa-chevron-left"></i> Voltar
+        </a>
+
+        <h1>Feirante</h1>
+
+        <div id="sucesso-cadastro" style="display:none; background-color:#d4edda; border:1px solid #c3e6cb; color:#155724; padding:15px; border-radius:8px; margin-bottom:20px; font-weight:bold; text-align:center;"></div>
+
+        <div class="grid-feirante">
+            <div class="card">
+                <h3 style="font-size:20px; margin-bottom:10px; font-weight:bold;">Acesso ao Sistema</h3>
+                
+                <label>Digite o nome do seu estabelecimento:</label>
+                <input type="text" placeholder="Ex: Barraca do João">
+
+                <label>Digite o número do seu box:</label>
+                <input class="input-pequeno" type="text" placeholder="Ex: 15">
+
+                <label>Selecione a categoria do seu estabelecimento:</label>
+                <select>
+                    <option>Selecione</option>
+                    <option>Carnes</option>
+                    <option>Frutas</option>
+                    <option>Verduras</option>
+                    <option>Temperos</option>
+                </select>
+                <button class="btn-verde" onclick="alert('Login efetuado!')">Entrar</button>
+            </div>
+
+            <div class="card">
+                <h3 style="font-size:20px; margin-bottom:10px; font-weight:bold;">Cadastrar meu Espaço</h3>
+                
+                <input type="file" id="input-imagem-oculto" accept="image/*" style="display:none;" onchange="carregarPreviewFoto(event)">
+                
+                <div class="upload" onclick="document.getElementById('input-imagem-oculto').click()">
+                    <div id="conteudo-upload-padrao" style="text-align:center;">
+                        <i class="fa-regular fa-image"></i>
+                        <p>Adicione uma imagem do local</p>
+                    </div>
+                    <img id="foto-carregada-view" class="preview-img" style="display:none;" alt="Preview">
+                </div>
+                <span class="obrigatorio">*Obrigatório</span>
+
+                <label>Nome do espaço:</label>
+                <input type="text" id="input-nome-espaco" placeholder="Ex: Barraca do João">
+
+                <label>Número do box:</label>
+                <input class="input-pequeno" type="text" id="input-box-espaco" placeholder="Ex: 15">
+
+                <label>Categoria:</label>
+                <select id="input-cat-espaco">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Artesanato">Artesanato</option>
+                    <option value="Roupas">Roupas</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Serviços">Serviços</option>
+                </select>
+
+                <button class="btn-verde" onclick="executarCadastroDinamico()">Concluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function carregarPreviewFoto(event) {
+            // Correção da variável sem espaços (Evitando o erro do VS Code)
+            const arquivoSelecionado = event.target.files[0];
+            if(arquivoSelecionado) {
+                const leitor = new FileReader();
+                leitor.onload = function(e) {
+                    document.getElementById('conteudo-upload-padrao').style.display = 'none';
+                    const visualizador = document.getElementById('foto-carregada-view');
+                    visualizador.src = e.target.result;
+                    visualizador.style.display = 'block';
+                }
+                leitor.readAsDataURL(arquivoSelecionado);
+            }
+        }
+
+        function executarCadastroDinamico() {
+            const nome = document.getElementById('input-nome-espaco').value.trim();
+            const boxNum = document.getElementById('input-box-espaco').value.trim();
+            const boxCat = document.getElementById('input-cat-espaco').value;
+            const alerta = document.getElementById('sucesso-cadastro');
+
+            if(nome === "" || boxNum === "" || boxCat === "") {
+                alert("Por favor, preencha todos os campos obrigatórios!");
+                return;
+            }
+
+            alerta.innerHTML = `Parabéns! O estabelecimento "${nome}" (${boxCat} - Box ${boxNum}) foi registrado com sucesso!`;
+            alerta.style.display = "block";
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>

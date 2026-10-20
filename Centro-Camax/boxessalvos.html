@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Camax - Meus Boxes Salvos</title>
+    <link rel="stylesheet" href="feirante.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="topo">
+        <img src="imagens/Logo centroCamax.svg" alt="Centro Camax">
+    </header>
+
+    <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+        <a href="acessorapido.html" class="voltar" style="text-decoration:none; color:#2d862f; font-weight:bold;">
+            <i class="fa-solid fa-chevron-left"></i> Voltar ao Painel
+        </a>
+
+        <h2 style="margin-top: 30px; margin-bottom: 20px;"><i class="fa-solid fa-bookmark"></i> Meus Boxes Salvos</h2>
+
+        <!-- Grid Onde aparecem os itens favoritados -->
+        <div id="grid-salvos" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+
+        <!-- Mensagem amigável caso não tenha nada favoritado -->
+        <div id="aviso-vazio" style="display:none; background:#fff; border: 2px dashed #ccc; padding:40px; text-align:center; border-radius:12px;">
+            <p style="font-size:18px; color:#555; font-weight:bold;">Nenhum box salvo no momento.</p>
+            <p style="color:#888; font-size:14px; margin-top:5px;">Vá até a página inicial e clique em "Salvar Box".</p>
+        </div>
+    </div>
+
+    <script>
+        function carregarFavoritos() {
+            const grid = document.getElementById('grid-salvos');
+            const aviso = document.getElementById('aviso-vazio');
+            let salvos = JSON.parse(localStorage.getItem('boxesSalvos')) || [];
+
+            if(salvos.length === 0) {
+                grid.style.display = "none";
+                aviso.style.display = "block";
+            } else {
+                grid.style.display = "grid";
+                aviso.style.display = "none";
+                grid.innerHTML = "";
+
+                salvos.forEach(box => {
+                    grid.innerHTML += `
+                        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd; display:flex; flex-direction:column; justify-content:between;">
+                            <div>
+                                <span style="background:#dff4c9; color:#2d862f; padding:3px 8px; border-radius:4px; font-weight:bold; font-size:12px;">${box.box}</span>
+                                <h4 style="margin:10px 0 5px 0; font-size:18px;">${box.nome}</h4>
+                                <p style="color:#666; font-size:13px; margin-bottom:15px;">Categoria: <strong>${box.categoria}</strong></p>
+                            </div>
+                            <button onclick="removerFavorito(${box.id})" style="width:100%; height:36px; background:#d32f2f; color:white; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">
+                                <i class="fa-solid fa-trash"></i> Remover Box
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function removerFavorito(id) {
+            let salvos = JSON.parse(localStorage.getItem('boxesSalvos')) || [];
+            salvos = salvos.filter(item => item.id !== id);
+            localStorage.setItem('boxesSalvos', JSON.stringify(salvos));
+            carregarFavoritos();
+        }
+
+        carregarFavoritos();
+    </script>
+</body>
+</html>
