@@ -7,13 +7,36 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="acessorapido.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .layout-colunas-acesso {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .coluna-opcao {
+            flex: 1 1 45%;
+            min-width: 220px;
+        }
+        .coluna-opcao.centralizada {
+            flex: 1 1 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .coluna-opcao.centralizada .btn-opcao-acesso {
+            max-width: 300px;
+        }
+    </style>
 </head>
 <body>
 
     <header class="container-menu-de-navegação-um">
         <nav class="menu-de-navegação">
             <div class="container-da-logo">
-                <img id="logo-centro-camax-um" src="imagens/Logo centroCamax.svg" alt="Logo Centro Camax">
+                <a href="index.html">
+                    <img id="logo-centro-camax-um" src="imagens/Logo centroCamax.svg" alt="Logo Centro Camax" onerror="this.src='https://via.placeholder.com/40?text=CAMAX'">
+                </a>
             </div>
             <div class="container-do-título-da-logo">
                 <h1 id="título-centro-camax-um">CENTRO CAMAX</h1>
@@ -28,19 +51,29 @@
             </a>
             
             <h2>Área do Feirante</h2>
-            <p class="subtitulo-acesso">Escolha uma das opções abaixo para prosseguir para o sistema</p>
+            <p class="subtitulo-acesso">Escolha uma das opções abaixo para prosseguir no sistema</p>
 
             <div class="layout-colunas-acesso">
+                <!-- Opção 1: Já possuo conta (Simulador de SMS) -->
                 <div class="coluna-opcao">
-                    <button class="btn-opcao-acesso login" onclick="window.location.href='feirante.html'">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>Entrar no meu Espaço</span>
+                    <button class="btn-opcao-acesso login" onclick="window.location.href='login.html'">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                        <span>Já possuo uma conta</span>
                     </button>
                 </div>
 
+                <!-- Opção 2: Não tenho conta (Cadastro) -->
                 <div class="coluna-opcao">
+                    <button class="btn-opcao-acesso cadastro" onclick="window.location.href='cadastroFeirante.html'">
+                        <i class="fa-solid fa-store"></i>
+                        <span>Cadastrar meu Box</span>
+                    </button>
+                </div>
+
+                <!-- Opção 3: Visualizar Boxes Salvos (Centralizado no Meio) -->
+                <div class="coluna-opcao centralizada">
                     <button class="btn-opcao-acesso visualizar-salvos" onclick="window.location.href='boxessalvos.html'">
-                        <i class="fa-solid fa-list-ul"></i>
+                        <i class="fa-solid fa-bookmark"></i>
                         <span>Visualizar Boxes Salvos</span>
                     </button>
                 </div>

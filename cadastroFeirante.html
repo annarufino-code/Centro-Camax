@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Feirante - Centro Camax</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f5f5f5; color: #333; }
+
+        .navbar { background-color: #2d862f; color: white; padding: 15px 4%; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 20px; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; color: white; }
+        .brand img { height: 40px; width: auto; }
+
+        .nav-btn { background: white; color: #2d862f; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; transition: background 0.2s; }
+        .nav-btn:hover { background: #e8f5e9; }
+
+        .auth-container { max-width: 550px; margin: 40px auto; background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #eef0ed; }
+        .auth-container h2 { color: #2d862f; font-size: 22px; margin-bottom: 6px; }
+        .auth-container p { color: #666; font-size: 14px; margin-bottom: 20px; }
+
+        .auth-form { display: flex; flex-direction: column; gap: 16px; }
+        .campo-grupo { display: flex; flex-direction: column; gap: 6px; }
+        .campo-grupo label { font-size: 14px; font-weight: bold; color: #333; }
+        .campo-grupo input, .campo-grupo select, .campo-grupo textarea { padding: 12px; border: 1px solid #b0b0b0; border-radius: 8px; font-size: 14px; outline: none; background: #fafafa; }
+        .campo-grupo input:focus, .campo-grupo select:focus, .campo-grupo textarea:focus { border-color: #2d862f; background: #ffffff; }
+
+        .input-com-status { position: relative; display: flex; align-items: center; }
+        .input-com-status input { width: 100%; padding-right: 40px; }
+        .loader-box { position: absolute; right: 12px; width: 18px; height: 18px; border: 2px solid #e0e0e0; border-top: 2px solid #2d862f; border-radius: 50%; animation: girar 0.8s linear infinite; }
+        @keyframes girar { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .status-icon-box { position: absolute; right: 12px; font-weight: bold; font-size: 16px; }
+        .escondido { display: none !important; }
+
+        .btn-salvar { background-color: #2d862f; color: white; padding: 14px; border: none; border-radius: 20px; font-size: 15px; font-weight: bold; cursor: pointer; transition: background-color 0.2s; margin-top: 10px; }
+        .btn-salvar:hover { background-color: #236d25; }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho com Logo SVG do Centro Camax -->
+    <div class="navbar">
+        <a href="index.html" class="brand">
+            <img src="imagens/Logo centroCamax.svg" alt="Logo Centro Camax" onerror="this.src='https://via.placeholder.com/40?text=CAMAX'">
+            <span>Centro Camax</span>
+        </a>
+        <a href="acessorapido.html" class="nav-btn"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+    </div>
+
+    <main class="auth-container">
+        <h2>Cadastro do Feirante</h2>
+        <p>Cadastre seu box e divulgue seus produtos na Feira de Camaçari.</p>
+
+        <form id="form-cadastro-feirante" class="auth-form" onsubmit="salvarNovoFeirante(event)">
+            
+            <div class="campo-grupo">
+                <label for="nome-box">Nome do Box / Estabelecimento:</label>
+                <input type="text" id="nome-box" placeholder="Ex: Barraca da Maria" required>
+            </div>
+
+            <div class="campo-grupo">
+                <label for="numero-box">Número do Box na Feira de Camaçari:</label>
+                <div class="input-com-status">
+                    <input type="text" id="numero-box" placeholder="Ex: Box A-12" required oninput="verificarBox(this.value)">
+                    <span id="loader-box" class="loader-box escondido"></span>
+                    <span id="status-box" class="status-icon-box"></span>
+                </div>
+            </div>
+
+            <div class="campo-grupo">
+                <label for="categoria-box">Categoria de Produtos:</label>
+                <select id="categoria-box" required>
+                    <option value="" disabled selected>Selecione a categoria...</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Artesanato">Artesanato</option>
+                    <option value="Roupas">Roupas</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Festa">Festa</option>
+                    <option value="Limpeza">Limpeza</option>
+                    <option value="Açougue">Açougue</option>
+                    <option value="Bomboniere">Bomboniere</option>
+                    <option value="Serviços">Serviços</option>
+                    <option value="Cosméticos">Cosméticos</option>
+                    <option value="Condimentos">Condimentos</option>
+                    <option value="Produtos Regionais">Produtos Regionais</option>
+                    <option value="Casa e Utilidades">Casa e Utilidades</option>
+                </select>
+            </div>
+
+            <div class="campo-grupo">
+                <label for="horario-box">Horário de Funcionamento:</label>
+                <input type="text" id="horario-box" placeholder="Ex: Seg a Sáb - 07:00 às 17:00" required>
+            </div>
+
+            <div class="campo-grupo">
+                <label for="foto-box">Foto do Espaço:</label>
+                <input type="file" id="foto-box" accept="image/*">
+            </div>
+
+            <div class="campo-grupo">
+                <label for="biografia-box">Biografia / História do Estabelecimento:</label>
+                <textarea id="biografia-box" rows="3" placeholder="Conte um pouco sobre seus produtos..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-salvar">Concluir Cadastro</button>
+        </form>
+    </main>
+
+    <script>
+        let temporizadorBox;
+
+        function verificarBox(valor) {
+            const loader = document.getElementById('loader-box');
+            const status = document.getElementById('status-box');
+
+            status.textContent = '';
+            if (!valor.trim()) {
+                loader.classList.add('escondido');
+                return;
+            }
+
+            loader.classList.remove('escondido');
+            clearTimeout(temporizadorBox);
+
+            temporizadorBox = setTimeout(() => {
+                loader.classList.add('escondido');
+                if (valor.trim().length >= 2) {
+                    status.textContent = '✓';
+                    status.style.color = '#2d862f';
+                } else {
+                    status.textContent = '✕';
+                    status.style.color = '#d9534f';
+                }
+            }, 900);
+        }
+
+        function salvarNovoFeirante(e) {
+            e.preventDefault();
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
